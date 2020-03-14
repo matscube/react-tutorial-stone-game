@@ -22,23 +22,22 @@ class Board extends React.Component {
   }
 
   render() {
+    let square = [];
+    for (var row = 0; row < 3; row++) {
+      let line = [];
+      for (var col = 0; col < 3; col++) {
+        const n = row * 3 + col;
+        line.push(this.renderSquare(n));
+      }
+      square.push(
+        <div className="board-row">
+          {line}
+        </div>
+      );
+    }
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {square}
       </div>
     );
   }
@@ -99,10 +98,12 @@ class Game extends React.Component {
       } else {
         const pos2d = position2d(step.position);
         content = step.player + ' ' + pos2d.col + ' ' + pos2d.row;
-       }
+      }
+      const style = move === this.state.stepNumber ?
+        'bold' : '';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>
+          <button className={style} onClick={() => this.jumpTo(move)}>
             {desc}
           </button>
           : {content}
