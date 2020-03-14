@@ -125,11 +125,16 @@ class Game extends React.Component {
 
     let status;
     let winnerLine;
+    const stepLimit = 9;
     if (winner) {
       status = 'Winner: ' + winner.player;
       winnerLine = winner.line;
     } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      if (this.state.stepNumber === stepLimit) {
+        status = 'Draw!';
+      } else {
+        status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      }
       winnerLine = [];
     }
 
